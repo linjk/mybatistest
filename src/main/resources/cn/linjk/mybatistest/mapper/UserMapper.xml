@@ -18,4 +18,10 @@
     <select id="selectAll" resultMap="userMap">
         SELECT * FROM t_user
     </select>
+
+    <select id="selectRolesbyUserId" resultType="cn.linjk.mybatistest.domain.Role">
+      select r.role_id, r.name, u.name as "user.name" from t_USER u
+      INNER join t_user_role ur on u.user_id = ur.user_id
+      INNER JOIN t_role r on ur.role_id = r.role_id;
+    </select>
 </mapper>

@@ -5,6 +5,8 @@ public class Role {
     private String name;
     private String remark;
 
+    private User user;
+
     public Long getRoleId() {
         return roleId;
     }
@@ -27,5 +29,13 @@ public class Role {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
