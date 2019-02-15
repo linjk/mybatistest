@@ -6,6 +6,8 @@
     <settings>
         <!-- 使用sl4j输出日志 -->
         <setting name="logImpl" value="LOG4J"/>
+        <!-- 自动将以下划线方式命名的数据库映射到Java对象的驼峰命名属性 -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
     </settings>
 
     <typeAliases>
@@ -22,12 +24,12 @@
                 <property name="driver" value="com.mysql.jdbc.Driver"/>
                 <property name="url" value="jdbc:mysql://localhost:3306/mytest"/>
                 <property name="username" value="root"/>
-                <property name="password" value="xxxxxx"/>
+                <property name="password" value="ljk121121"/>
             </dataSource>
         </environment>
     </environments>
 
     <mappers>
-        <mapper resource="cn/linjk/mybatistest/mapper/UserMapper.xml"/>
+        <package name="cn.linjk.mybatistest.mapper"/>
     </mappers>
 </configuration>

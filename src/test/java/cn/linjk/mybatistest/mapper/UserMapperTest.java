@@ -1,42 +1,20 @@
 package cn.linjk.mybatistest.mapper;
 
 import cn.linjk.mybatistest.domain.User;
-import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
-import org.apache.ibatis.session.SqlSessionFactory;
-import org.apache.ibatis.session.SqlSessionFactoryBuilder;
-import org.junit.BeforeClass;
+import org.junit.Assert;
 import org.junit.Test;
 
-import java.io.IOException;
-import java.io.Reader;
-import java.util.List;
-
-public class UserMapperTest {
-
-    private static SqlSessionFactory sqlSessionFactory;
-
-    @BeforeClass
-    public static void init() {
-        try {
-            Reader reader = Resources.getResourceAsReader("mybatis-config.xml");
-            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
-            reader.close();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
+public class UserMapperTest extends BaseMapperTest {
 
     @Test
-    public void testSelectUsers() {
-        SqlSession sqlSession = sqlSessionFactory.openSession();
+    public void testSelectUserById() {
+        SqlSession sqlSession = getSqlSession();
         try {
-            List<User> userList = sqlSession.selectList("selectAllUser");
-            for (User user : userList) {
-                System.out.printf("%-4d%4s%4s\n",
-                        user.getUserId(), user.getName(), user.getPasswd());
-            }
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.selectById(1L);
+            Assert.assertNotNull(user);
+            Assert.assertEquals("admin", user.getName());
         }
         finally {
             sqlSession.close();

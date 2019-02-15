@@ -1,16 +1,20 @@
 package cn.linjk.mybatistest.domain;
 
+import java.util.Date;
+
 public class User {
-    private Long iduser;
+    private Long userId;
     private String name;
-    private String passwd;
+    private String password;
+    private Date lastLogin;
+    private String remark;
 
     public Long getUserId() {
-        return iduser;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        this.iduser = userId;
+        this.userId = userId;
     }
 
     public String getName() {
@@ -21,11 +25,27 @@ public class User {
         this.name = name;
     }
 
-    public String getPasswd() {
-        return passwd;
+    public String getPassword() {
+        return password;
     }
 
-    public void setPasswd(String passwd) {
-        this.passwd = passwd;
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Date getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(Date lastLogin) {
+        this.lastLogin = lastLogin;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
     }
 }
