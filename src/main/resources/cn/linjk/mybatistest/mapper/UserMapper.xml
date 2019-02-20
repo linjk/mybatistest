@@ -24,4 +24,17 @@
       INNER join t_user_role ur on u.user_id = ur.user_id
       INNER JOIN t_role r on ur.role_id = r.role_id;
     </select>
+
+    <insert id="insert">
+        INSERT INTO t_user (user_id, name, password, last_login, remark)
+        VALUES (#{userId}, #{name}, #{password}, #{lastLogin, jdbcType=TIMESTAMP}, #{remark})
+    </insert>
+
+    <update id="updateByUserId">
+        UPDATE t_user set name = #{name}, password = #{password} WHERE user_id = #{userId}
+    </update>
+
+    <delete id="deleteByUserId">
+        DELETE FROM t_user WHERE user_id = #{userId}
+    </delete>
 </mapper>
