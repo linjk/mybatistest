@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!-- defaultModelType为flat则每一个表生成一个实体类 -->
+    <context id="MySqlContext" targetRuntime="MyBatis3Simple" defaultModelType="flat">
+        <property name="autoDelimitKeywords" value="true"/>
+        <property name="beginningDelimiter" value="`"/>
+        <property name="endingDelimiter" value="`"/>
+        <property name="javaFileEncoding" value="UTF-8"/>
+        <property name="mergeable" value="false"/>
+
+        <plugin type="cn.linjk.mybatistest.generator.OverIsMergeablePlugin"/>
+
+        <!-- 配置如何生成注释信息 -->
+        <commentGenerator type="cn.linjk.mybatistest.generator.MyCommentGenerator">
+            <!-- 阻止生成的注释包含时间戳 -->
+            <property name="suppressDate" value="true"/>
+            <!-- 添加数据表的备注信息 -->
+            <property name="addRemarkComments" value="true"/>
+        </commentGenerator>
+
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://localhost:3306/mytest"
+                        userId="root"
+                        password="ljk121121">
+        </jdbcConnection>
+
+        <javaModelGenerator targetPackage="cn.linjk.mybatistest.generator.domain"
+                            targetProject="src\main\java">
+            <property name="enableSubPackages" value="false"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+
+        <sqlMapGenerator targetPackage="cn.linjk.mybatistest.generator.xml"
+                         targetProject="src\main\resources"/>
+
+        <javaClientGenerator type="XMLMAPPER" targetPackage="cn.linjk.mybatistest.generator.dao"
+                         targetProject="src\main\java"/>
+
+        <table tableName="%">
+        </table>
+    </context>
+</generatorConfiguration>
