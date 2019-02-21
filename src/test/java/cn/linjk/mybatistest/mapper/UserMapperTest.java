@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,22 @@ public class UserMapperTest extends BaseMapperTest {
             User user = userMapper.selectById(1L);
             Assert.assertNotNull(user);
             Assert.assertEquals("admin", user.getName());
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectUserByIdList() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<Long> idList = new ArrayList<>();
+            idList.add(1L);
+            idList.add(2L);
+            List<User> result = userMapper.selectByIdList(idList);
+            Assert.assertEquals(2, result.size());
         }
         finally {
             sqlSession.close();
@@ -51,6 +68,29 @@ public class UserMapperTest extends BaseMapperTest {
             user.setLastLogin(new Date());
             int result = userMapper.insert(user);
             Assert.assertEquals(1, result);
+        }
+        finally {
+            sqlSession.rollback();
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testInsertList() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<User> users = new ArrayList<>();
+            for (int i = 3; i < 5; i++) {
+                User user = new User();
+                user.setUserId(Long.valueOf(i));
+                user.setName("test");
+                user.setPassword("test");
+                user.setLastLogin(new Date());
+                users.add(user);
+            }
+            int result = userMapper.insertList(users);
+            Assert.assertEquals(2, result);
         }
         finally {
             sqlSession.rollback();

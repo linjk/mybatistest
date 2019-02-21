@@ -8,9 +8,12 @@ import java.util.List;
 
 public interface UserMapper {
     User selectById(Long id);
+    User selectByUser(User user);
+    List<User> selectByIdList(List<Long> idList);
     List<User> selectAll();
     List<Role> selectRolesbyUserId(Long id);
     int insert(User user);
+    int insertList(List<User> userList);
     int updateByUserId(User user);
     int deleteByUserId(Long userId);
 
