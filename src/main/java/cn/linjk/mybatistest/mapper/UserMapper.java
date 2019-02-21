@@ -1,6 +1,5 @@
 package cn.linjk.mybatistest.mapper;
 
-import cn.linjk.mybatistest.domain.Role;
 import cn.linjk.mybatistest.domain.User;
 import org.apache.ibatis.annotations.Select;
 
@@ -11,7 +10,7 @@ public interface UserMapper {
     User selectByUser(User user);
     List<User> selectByIdList(List<Long> idList);
     List<User> selectAll();
-    List<Role> selectRolesbyUserId(Long id);
+    User selectUserAndRoleById(Long id);
     int insert(User user);
     int insertList(List<User> userList);
     int updateByUserId(User user);

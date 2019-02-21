@@ -9,6 +9,9 @@ public class User {
     private Date lastLogin;
     private String remark;
 
+    // 用户与角色一对一，即：用户拥有一个角色
+    private Role role;
+
     public Long getUserId() {
         return userId;
     }
@@ -47,5 +50,13 @@ public class User {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

@@ -11,6 +11,14 @@
         <result property="remark" column="remark"/>
     </resultMap>
 
+    <resultMap id="userRoleMap" extends="userMap" type="cn.linjk.mybatistest.domain.User">
+        <!-- role相关属性 -->
+        <association property="role"
+                     fetchType="lazy"
+                     column="{roleId=role_id}"
+                     select="cn.linjk.mybatistest.mapper.RoleMapper.selectRoleById"/>
+    </resultMap>
+
     <select id="selectById" resultMap="userMap">
         SELECT * FROM t_user WHERE user_id = #{id}
     </select>
@@ -63,10 +71,12 @@
         SELECT * FROM t_user
     </select>
 
-    <select id="selectRolesbyUserId" resultType="cn.linjk.mybatistest.domain.Role">
-      select r.role_id, r.name, u.name as "user.name" from t_USER u
-      INNER join t_user_role ur on u.user_id = ur.user_id
-      INNER JOIN t_role r on ur.role_id = r.role_id;
+    <select id="selectUserAndRoleById" resultMap="userRoleMap">
+      SELECT
+        u.user_id, u.name, u.password, u.last_login, u.remark,
+        ur.role_id
+      FROM t_user u
+      INNER JOIN t_user_role ur ON u.user_id = ur.user_id
     </select>
 
     <insert id="insert">

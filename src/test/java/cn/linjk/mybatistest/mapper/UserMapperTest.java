@@ -43,13 +43,16 @@ public class UserMapperTest extends BaseMapperTest {
     }
 
     @Test
-    public void testSelectRolesByUserId() {
+    public void testSelectUserAndRoleById() {
         SqlSession sqlSession = getSqlSession();
         try {
             UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
-            List<Role> roleList = userMapper.selectRolesbyUserId(1L);
-            Assert.assertNotNull(roleList);
-            Assert.assertTrue(roleList.size() > 0);
+            User user = userMapper.selectUserAndRoleById(1L);
+            Assert.assertNotNull(user);
+            // <setting name="aggressiveLazyLoading" value="false"/>
+            // 需要在mybatis-config.xml加上这个配置
+            System.out.println("懒加载查询role表......");
+            Assert.assertNotNull(user.getRole());
         }
         finally {
             sqlSession.close();
