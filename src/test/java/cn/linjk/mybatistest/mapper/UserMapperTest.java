@@ -1,6 +1,5 @@
 package cn.linjk.mybatistest.mapper;
 
-import cn.linjk.mybatistest.domain.Role;
 import cn.linjk.mybatistest.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
