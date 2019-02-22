@@ -1,5 +1,7 @@
 package cn.linjk.mybatistest.mapper;
 
+import cn.linjk.mybatistest.domain.Autority;
+import cn.linjk.mybatistest.domain.Role;
 import cn.linjk.mybatistest.domain.User;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
@@ -52,6 +54,28 @@ public class UserMapperTest extends BaseMapperTest {
             // 需要在mybatis-config.xml加上这个配置
             System.out.println("懒加载查询role表......");
             Assert.assertNotNull(user.getRole());
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testSelectAllUserAndRoles() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            List<User> userList = userMapper.selectAllUserAndRoles();
+            System.out.println("用户数: " + userList.size());
+            for (User user : userList) {
+                System.out.println("用户名: " + user.getName());
+                for (Role role : user.getRoleList()) {
+                    System.out.println("-- 角色名: " + role.getName());
+                    for (Autority autority : role.getAutorityList()) {
+                        System.out.println("  -- 权限名： " + autority.getName());
+                    }
+                }
+            }
         }
         finally {
             sqlSession.close();

@@ -19,6 +19,10 @@
                      select="cn.linjk.mybatistest.mapper.RoleMapper.selectRoleById"/>
     </resultMap>
 
+    <resultMap id="userRoleListMap" extends="userMap" type="cn.linjk.mybatistest.domain.User">
+        <collection property="roleList" columnPrefix="role_" resultMap="cn.linjk.mybatistest.mapper.RoleMapper.rolePrivilegeListMap"/>
+    </resultMap>
+
     <select id="selectById" resultMap="userMap">
         SELECT * FROM t_user WHERE user_id = #{id}
     </select>
@@ -77,6 +81,19 @@
         ur.role_id
       FROM t_user u
       INNER JOIN t_user_role ur ON u.user_id = ur.user_id
+    </select>
+
+    <select id="selectAllUserAndRoles" resultMap="userRoleListMap">
+        SELECT
+          u.user_id, u.name, u.password, u.last_login, u.remark,
+          r.role_id, r.name role_name, r.remark role_remark,
+          a.auth_id, a.name role_auth_name, a.url role_auth_url, a.remark role_auth_remark
+        FROM
+          t_user u
+        INNER JOIN t_user_role ur ON u.user_id = ur.user_id
+        INNER JOIN t_role r ON r.role_id = ur.role_id
+        INNER JOIN t_role_auth ra ON ra.role_id = r.role_id
+        INNER JOIN t_authority a ON a.auth_id = ra.auth_id
     </select>
 
     <insert id="insert">

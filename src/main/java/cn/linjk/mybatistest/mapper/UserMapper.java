@@ -11,6 +11,8 @@ public interface UserMapper {
     List<User> selectByIdList(List<Long> idList);
     List<User> selectAll();
     User selectUserAndRoleById(Long id);
+    // 获取所有用户以及对应的所有角色
+    List<User> selectAllUserAndRoles();
     int insert(User user);
     int insertList(List<User> userList);
     int updateByUserId(User user);

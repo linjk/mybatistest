@@ -1,6 +1,7 @@
 package cn.linjk.mybatistest.domain;
 
 import java.util.Date;
+import java.util.List;
 
 public class User {
     private Long userId;
@@ -11,6 +12,9 @@ public class User {
 
     // 用户与角色一对一，即：用户拥有一个角色
     private Role role;
+
+    // 用户的角色集合
+    private List<Role> roleList;
 
     public Long getUserId() {
         return userId;
@@ -58,5 +62,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Role> getRoleList() {
+        return roleList;
+    }
+
+    public void setRoleList(List<Role> roleList) {
+        this.roleList = roleList;
     }
 }

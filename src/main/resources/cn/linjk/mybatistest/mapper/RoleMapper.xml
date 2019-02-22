@@ -9,7 +9,20 @@
         <result property="remark" column="remark"/>
     </resultMap>
 
+    <resultMap id="rolePrivilegeListMap" extends="roleMap" type="cn.linjk.mybatistest.domain.Role">
+        <collection property="autorityList"
+                    fetchType="lazy"
+                    column="{roleId = role_id}"
+                    select="cn.linjk.mybatistest.mapper.AuthorityMapper.selectAuthByRoleId"/>
+    </resultMap>
+
     <select id="selectRoleById" resultMap="roleMap">
       SELECT * FROM t_role WHERE role_id = #{roleId}
+    </select>
+
+    <select id="selectRoleByUserId" resultMap="rolePrivilegeListMap">
+        SELECT r.role_id, r.name, r.remark FROM t_role r
+        INNER JOIN t_user_role ur ON ur.role_id = r.role_id
+        WHERE ur.user_id = #{userId}
     </select>
 </mapper>

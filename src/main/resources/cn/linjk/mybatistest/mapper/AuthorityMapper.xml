@@ -3,4 +3,15 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.linjk.mybatistest.mapper.AuthorityMapper">
+    <resultMap id="authorityMap" type="cn.linjk.mybatistest.domain.Autority">
+        <id property="authId" column="auth_id"/>
+        <result property="name" column="name"/>
+        <result property="url" column="url"/>
+        <result property="remark" column="remark"/>
+    </resultMap>
+
+    <!-- 通过角色id获取该角色对应的所有权限信息 -->
+    <select id="selectAuthByRoleId" resultMap="authorityMap">
+        SELECT a.* FROM t_authority a INNER JOIN t_role_auth ra ON ra.auth_id = a.auth_id WHERE role_id = #{roleId}
+    </select>
 </mapper>
