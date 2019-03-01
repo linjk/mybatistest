@@ -3,6 +3,7 @@ package cn.linjk.mybatistest.mapper;
 import cn.linjk.mybatistest.domain.Autority;
 import cn.linjk.mybatistest.domain.Role;
 import cn.linjk.mybatistest.domain.User;
+import cn.linjk.mybatistest.type.TypeStatus;
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Assert;
 import org.junit.Test;
@@ -162,6 +163,39 @@ public class UserMapperTest extends BaseMapperTest {
             Assert.assertEquals(1, userMapper.deleteByUserId(3L));
             user = userMapper.selectById(3L);
             Assert.assertNull(user);
+        }
+        finally {
+            sqlSession.rollback();
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testPSelectUserById() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = new User();
+            user.setUserId(1L);
+            userMapper.pSelectUserById(user);
+            //Assert.assertNotNull(user.getPassword());
+            System.out.println("用户名：" + user.getName());
+        }
+        finally {
+            sqlSession.close();
+        }
+    }
+
+    @Test
+    public void testTypeHandler() {
+        SqlSession sqlSession = getSqlSession();
+        try {
+            UserMapper userMapper = sqlSession.getMapper(UserMapper.class);
+            User user = userMapper.selectById(1L);
+            Assert.assertEquals(TypeStatus.normal, user.getStatus());
+            user.setStatus(TypeStatus.history);
+            userMapper.updateByUserId(user);
+            Assert.assertEquals(TypeStatus.history, user.getStatus());
         }
         finally {
             sqlSession.rollback();

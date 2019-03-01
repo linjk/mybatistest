@@ -1,5 +1,7 @@
 package cn.linjk.mybatistest.domain;
 
+import cn.linjk.mybatistest.type.TypeStatus;
+
 import java.util.Date;
 import java.util.List;
 
@@ -9,6 +11,17 @@ public class User {
     private String password;
     private Date lastLogin;
     private String remark;
+    private TypeStatus status;
+
+    private TypeStatus typeStatus;
+
+    public TypeStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TypeStatus status) {
+        this.status = status;
+    }
 
     // 用户与角色一对一，即：用户拥有一个角色
     private Role role;

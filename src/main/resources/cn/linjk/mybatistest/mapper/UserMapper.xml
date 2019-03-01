@@ -9,6 +9,7 @@
         <result property="password" column="password"/>
         <result property="lastLogin" column="last_login"/>
         <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
     </resultMap>
 
     <resultMap id="userRoleMap" extends="userMap" type="cn.linjk.mybatistest.domain.User">
@@ -117,4 +118,10 @@
     <delete id="deleteByUserId">
         DELETE FROM t_user WHERE user_id = #{userId}
     </delete>
+
+    <!-- 存储过程调用示例，需要把statementType设置为CALLABLE，并且存储过程方式不支持MyBatis的二级缓存，因此需要将useCache设置为false -->
+    <!-- mode的模式为OUT时必须指定jdbcType，而IN模式默认提供了jdbcType -->
+    <select id="pSelectUserById" statementType="CALLABLE" useCache="false">
+        {call select_user_by_id(#{userId, mode=IN}, #{name, mode=OUT, jdbcType=VARCHAR})}
+    </select>
 </mapper>

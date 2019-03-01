@@ -21,4 +21,6 @@ public interface UserMapper {
     // 注解用法
     @Select({"SELECT name, password FROM t_user WHERE user_id = #{id}"})
     User selectByIdAnnotation(Long id);
+
+    void pSelectUserById(User user);
 }
