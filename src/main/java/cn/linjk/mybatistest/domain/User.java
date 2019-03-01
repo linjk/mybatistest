@@ -2,10 +2,14 @@ package cn.linjk.mybatistest.domain;
 
 import cn.linjk.mybatistest.type.TypeStatus;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 
-public class User {
+public class User implements Serializable{
+
+    private static final long serialVersionUID = -1613112347272882149L;
+
     private Long userId;
     private String name;
     private String password;
