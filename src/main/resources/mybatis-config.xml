@@ -9,6 +9,7 @@
         <!-- 自动将以下划线方式命名的数据库映射到Java对象的驼峰命名属性 -->
         <setting name="mapUnderscoreToCamelCase" value="true"/>
         <setting name="aggressiveLazyLoading" value="false"/>
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 
     <typeAliases>
